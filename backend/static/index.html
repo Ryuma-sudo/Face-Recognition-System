@@ -1,0 +1,94 @@
+﻿<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Face Recognition System</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="mark">FR</div>
+        <div>
+          <h1>Face Recognition</h1>
+          <p>SCRFD + ArcFace + FAISS</p>
+        </div>
+      </div>
+
+      <nav class="tabs" aria-label="Chức năng">
+        <button class="tab active" data-view="enroll-view">Đăng ký khuôn mặt</button>
+        <button class="tab" data-view="detect-view">Nhận diện realtime</button>
+      </nav>
+
+      <section class="status-panel">
+        <div>
+          <span class="label">Database</span>
+          <strong id="database-size">0 embeddings</strong>
+        </div>
+        <div>
+          <span class="label">API</span>
+          <strong id="api-status">checking...</strong>
+        </div>
+      </section>
+    </aside>
+
+    <section class="workspace">
+      <section id="enroll-view" class="view active">
+        <header class="view-header">
+          <h2>Đăng ký khuôn mặt</h2>
+          <p>Nhập tên, chọn ảnh rõ mặt hoặc chụp trực tiếp từ camera.</p>
+        </header>
+
+        <div class="grid two-cols">
+          <section class="panel controls">
+            <label for="person-name">Tên người dùng</label>
+            <input id="person-name" type="text" placeholder="Ví dụ: Tien">
+
+            <label for="image-file">Ảnh khuôn mặt</label>
+            <input id="image-file" type="file" accept="image/*">
+
+            <div class="button-row">
+              <button id="enroll-file-btn" class="primary">Đăng ký từ ảnh</button>
+              <button id="enroll-camera-btn">Đăng ký từ camera</button>
+            </div>
+
+            <p id="enroll-message" class="message"></p>
+          </section>
+
+          <section class="panel preview-panel">
+            <div class="camera-frame">
+              <video id="enroll-video" autoplay muted playsinline></video>
+              <canvas id="enroll-canvas"></canvas>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="detect-view" class="view">
+        <header class="view-header compact">
+          <div>
+            <h2>Nhận diện realtime</h2>
+            <p>Camera sẽ gửi khung hình tới backend và vẽ bbox cùng tên dự đoán.</p>
+          </div>
+          <div class="button-row">
+            <button id="start-detect-btn" class="primary">Bắt đầu</button>
+            <button id="stop-detect-btn">Dừng</button>
+          </div>
+        </header>
+
+        <section class="panel preview-panel large">
+          <div class="camera-frame detect-frame">
+            <video id="detect-video" autoplay muted playsinline></video>
+            <canvas id="detect-canvas"></canvas>
+          </div>
+          <p id="detect-message" class="message"></p>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
